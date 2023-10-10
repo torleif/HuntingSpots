@@ -1,6 +1,8 @@
 # New Zealand Hunting Spots
+https://pages.cloudflare.com/
 
-This project is a static recreation of the defunct Hunting Spots website, which you can find at the following link: [Hunting Spots Showcase.](https://www.data.govt.nz/catalogue-guide/showcase/huntingspots/)
+
+This project is a static re-creation of the defunct Hunting Spots website, which you can find at the following link: [Hunting Spots Showcase.](https://www.data.govt.nz/catalogue-guide/showcase/huntingspots/)
 # How to Run Locally
 
 To run this app on your computer, follow these steps:

@@ -1,0 +1,11 @@
+{
+	"name": "my-map",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "http-server"
+	},
+	"type": "module",
+	"dependencies": {
+		"http-server": "^14.1.1"
+	}
+}

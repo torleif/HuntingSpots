@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hunting areas</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha384-o/2yZuJZWGJ4s/adjxVW71R+EO/LyCwdQfP5UWSgX/w87iiTXuvDZaejd3TsN7mf" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha384-okbbMvvx/qfQkmiQKfd5VifbKZ/W8p1qIsWvE1ROPUfHWsDcC8/BnHohF7vPg2T6" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"
+        integrity="sha512-Abr21JO2YqcJ03XGZRPuZSWKBhJpUAR6+2wH5zBeO4wAw4oksr8PRdF+BKIRsxvCdq+Mv4670rZ+dLnIyabbGw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/leaflet.vectorgrid@1.3.0/dist/Leaflet.VectorGrid.bundled.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+
+
+        var Temp = L.tileLayer(
+            "https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=d22d9a6a3ff2aa523d5917bbccc89211",
+            {
+                maxZoom: 18,
+                attribution: '&copy; <a href="http://owm.io">VANE</a>',
+                id: "temp"
+            }
+        ),
+            Precipitation = L.tileLayer(
+                "https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=d22d9a6a3ff2aa523d5917bbccc89211",
+                {
+                    maxZoom: 18,
+                    attribution: '&copy; <a href="http://owm.io">VANE</a>'
+                }
+            ),
+            Wind = L.tileLayer(
+                "https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=d22d9a6a3ff2aa523d5917bbccc89211",
+                {
+                    maxZoom: 18,
+                    attribution: '&copy; <a href="http://owm.io">VANE</a>'
+                }
+            ),
+            Pressure = L.tileLayer(
+                "https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=d22d9a6a3ff2aa523d5917bbccc89211",
+                {
+                    maxZoom: 18,
+                    attribution: '&copy; <a href="http://owm.io">VANE</a>'
+                }
+            ),
+            Clouds = L.tileLayer(
+                "https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=d22d9a6a3ff2aa523d5917bbccc89211",
+                {
+                    maxZoom: 18,
+                    attribution: '&copy; <a href="http://owm.io">VANE</a>'
+                }
+            );
+
+        var overlays = {
+            Temperature: Temp,
+            Precipitation: Precipitation,
+            Clouds: Clouds,
+            Pressure: Pressure,
+            Wind: Wind
+        };
+        //L.control.layers(overlays, null, { collapsed: false }).addTo(map);
+
+
+
+
+
+
+
+
+
+
+        const topo50 = L.tileLayer('https://github.com/torleif/HuntingSpots/blob/main/public//{z}/{x}/{y}.png', {
+            maxZoom: 15,
+        });
+
+
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        });
+
+        const map = L.map('map', {
+            center: [-42, 173],
+            zoom: 6,
+            layers: [topo50]
+        });
+
+        const baseLayers = {
+            'Topo50': topo50,
+            'OpenStreetMap': osm
+        };
+
+        const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+
+        // fallow deer
+        var fallowdeer = L.geoJSON([], { color: '#4082bf' }).on('add', function (event) {
+            if (Object.keys(fallowdeer._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Fallow_Deer_in_New_Zealand_(2007).geojson"))
+                    .on('data:progress', function (data) { fallowdeer.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(fallowdeer, 'Fallow deer (8 MB)');
+
+        // red deer
+        var reddeer = L.geoJSON([], { color: '#e3211c' }).on('add', function (event) {
+            if (Object.keys(reddeer._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Red_Deer_in_New_Zealand_(2014).geojson"))
+                    .on('data:progress', function (data) { reddeer.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(reddeer, 'Red deer (52 MB)');
+
+        // rusa deer
+        var rusadeer = L.geoJSON([], { color: '#cf6930' }).on('add', function (event) {
+            if (Object.keys(rusadeer._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Rusa_Deer_in_New_Zealand_(2007).geojson"))
+                    .on('data:progress', function (data) { rusadeer.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(rusadeer, 'Rusa deer (250 KB)');
+
+        // Samba deer
+        var sambadeer = L.geoJSON([], { color: '#b9b546' }).on('add', function (event) {
+            if (Object.keys(sambadeer._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Sambar_Deer_in_New_Zealand_(2007).geojson"))
+                    .on('data:progress', function (data) { sambadeer.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(sambadeer, 'Samba deer (3 MB)');
+
+        // Sika deer
+        var sikadeer = L.geoJSON([], { color: '#dbbb24' }).on('add', function (event) {
+            if (Object.keys(sikadeer._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Sika_Deer_in_New_Zealand_(2007).geojson"))
+                    .on('data:progress', function (data) { sikadeer.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(sikadeer, 'Sika deer (1.7 MB)');
+
+        // elk - Wapiti deer
+        var wapitideer = L.geoJSON([], { color: '#d32c6e' }).on('add', function (event) {
+            if (Object.keys(wapitideer._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Wapiti_in_New_Zealand_(2007).geojson"))
+                    .on('data:progress', function (data) { wapitideer.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(wapitideer, 'Wapiti (elk) (800 KB)');
+
+        // White-tailed deer
+        var whitetaileddeer = L.geoJSON([], { color: '#7e6c93' }).on('add', function (event) {
+            if (Object.keys(whitetaileddeer._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_White-tailed_Deer_in_New_Zealand_(2007).geojson"))
+                    .on('data:progress', function (data) { whitetaileddeer.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(whitetaileddeer, 'White-tailed deer (2MB)');
+
+        // tahr
+        var tahr = L.geoJSON([], { color: '#59ff00' }).on('add', function (event) {
+            if (Object.keys(tahr._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Himalayan_Tahr_in_New_Zealand_(2014).geojson"))
+                    .on('data:progress', function (data) { tahr.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(tahr, 'Tahr (9 MB)');
+        // pigs
+        //var pigs = L.geoJSON([], {color:'#1dff00'}).on('add', function(event) {
+        //	if(Object.keys(pigs._layers).length == 0) {
+        //		(new L.GeoJSON.AJAX("/vector/Distribution_of_Feral_Pig_in_New_Zealand_(2007).geojson"))
+        //			.on('data:progress', function (data) {pigs.addData(data)});
+        //	}
+        //});
+        //layerControl.addOverlay(pigs, 'Pigs (157 MB)');
+        // chamois
+        var chamois = L.geoJSON([], { color: '#00ff2e' }).on('add', function (event) {
+            if (Object.keys(chamois._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Chamois_in_New_Zealand_(2007).geojson"))
+                    .on('data:progress', function (data) { chamois.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(chamois, 'Chamois (26 MB)');
+        // goats
+        var goats = L.geoJSON([], { color: '#00ff9c' }).on('add', function (event) {
+            if (Object.keys(goats._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/Distribution_of_Feral_Goat_in_New_Zealand_(2014).geojson"))
+                    .on('data:progress', function (data) { goats.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(goats, 'Goats (29 MB)');
+
+        // pigs
+        var pigs3 = L.geoJSON([], { color: '#00ff9c' }).on('add', function (event) {
+            if (Object.keys(pigs3._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/pigs8.geojson"))
+                    .on('data:progress', function (data) { pigs3.addData(data) });
+            }
+        }).on('click', onMapClick);
+        layerControl.addOverlay(pigs3, 'Pigs (19 MB)');
+
+
+
+
+        // hunting areas
+        var huntingareas = L.geoJSON([], { color: '#99619e' }).on('add', function (event) {
+            if (Object.keys(huntingareas._layers).length == 0) {
+                (new L.GeoJSON.AJAX("/vector/DOC_Recreational_Hunting_Permit_Areas.geojson"))
+                    .on('data:progress', function (data) { huntingareas.addData(data) });
+            }
+        });
+        layerControl.addOverlay(huntingareas, 'Hunting areas (93 MB)');
+
+
+
+        // human friendly titles for data for popup
+        const keyMap = {
+            AbundDataS: "Abundance Data",
+            AbundIndex: "Abundance Index",
+            AbundMetho: "Abundance Method",
+            AbundNotes: "Abundance Notes",
+            AbundRelia: "Abundance Reliability",
+            Abundance: "Abundance",
+            CommonName: "Common Name",
+            OBJECTID: "Object ID",
+            Observatio: "Observation Year",
+            Office: "Office",
+            Organisati: "Organization",
+            PA: "Presence/Absence",
+            RecID: "Record ID",
+            RefElectSh: "Ref Elect Shape",
+            SHAPE_Area: "Shape Area",
+            SHAPE_Length: "Shape Length",
+            Scientific: "Scientific Name",
+            ShapeFileN: "Shape File Number",
+        };
+
+        // Specify the keys you want to exclude from the popup
+        const excludedKeys = ["OBJECTID", "SHAPE_Length", "ShapeFileN", "SHAPE_Area", "RecID"];
+
+
+        // tidy up the raw data from the geojson file
+        function formatPopupData(data, excludedKeys = []) {
+            const formattedEntries = Object.entries(data)
+                .filter(([key, value]) => String(value).trim() !== "" && !excludedKeys.includes(key)) // Exclude blank values (after trimming whitespace)
+                .map(([key, value]) => `${keyMap[key]}: ${String(value).trim()}`) // Format key-value pairs with translated labels
+                .join("<br>"); // Use line breaks for each key-value pair
+
+            return formattedEntries;
+        }
+
+
+        // clicking a vector area on the map
+        var popup = L.popup();
+
+        // we set this on the vector tile map
+        function onMapClick(e) {
+            if (e.layer) {
+                var features = e.layer.feature;
+                popup
+                    .setLatLng(e.latlng)
+                    .setContent(formatPopupData(features.properties, excludedKeys))
+                    .openOn(map);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

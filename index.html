@@ -115,7 +115,7 @@
         // fallow deer
         var fallowdeer = L.geoJSON([], { color: '#4082bf' }).on('add', function (event) {
             if (Object.keys(fallowdeer._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Fallow_Deer_in_New_Zealand_(2007).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Fallow_Deer_in_New_Zealand_(2007).geojson"))
                     .on('data:progress', function (data) { fallowdeer.addData(data) });
             }
         }).on('click', onMapClick);
@@ -124,7 +124,7 @@
         // red deer
         var reddeer = L.geoJSON([], { color: '#e3211c' }).on('add', function (event) {
             if (Object.keys(reddeer._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Red_Deer_in_New_Zealand_(2014).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Red_Deer_in_New_Zealand_(2014).geojson"))
                     .on('data:progress', function (data) { reddeer.addData(data) });
             }
         }).on('click', onMapClick);
@@ -133,7 +133,7 @@
         // rusa deer
         var rusadeer = L.geoJSON([], { color: '#cf6930' }).on('add', function (event) {
             if (Object.keys(rusadeer._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Rusa_Deer_in_New_Zealand_(2007).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Rusa_Deer_in_New_Zealand_(2007).geojson"))
                     .on('data:progress', function (data) { rusadeer.addData(data) });
             }
         }).on('click', onMapClick);
@@ -142,7 +142,7 @@
         // Samba deer
         var sambadeer = L.geoJSON([], { color: '#b9b546' }).on('add', function (event) {
             if (Object.keys(sambadeer._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Sambar_Deer_in_New_Zealand_(2007).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Sambar_Deer_in_New_Zealand_(2007).geojson"))
                     .on('data:progress', function (data) { sambadeer.addData(data) });
             }
         }).on('click', onMapClick);
@@ -151,7 +151,7 @@
         // Sika deer
         var sikadeer = L.geoJSON([], { color: '#dbbb24' }).on('add', function (event) {
             if (Object.keys(sikadeer._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Sika_Deer_in_New_Zealand_(2007).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Sika_Deer_in_New_Zealand_(2007).geojson"))
                     .on('data:progress', function (data) { sikadeer.addData(data) });
             }
         }).on('click', onMapClick);
@@ -160,7 +160,7 @@
         // elk - Wapiti deer
         var wapitideer = L.geoJSON([], { color: '#d32c6e' }).on('add', function (event) {
             if (Object.keys(wapitideer._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Wapiti_in_New_Zealand_(2007).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Wapiti_in_New_Zealand_(2007).geojson"))
                     .on('data:progress', function (data) { wapitideer.addData(data) });
             }
         }).on('click', onMapClick);
@@ -169,7 +169,7 @@
         // White-tailed deer
         var whitetaileddeer = L.geoJSON([], { color: '#7e6c93' }).on('add', function (event) {
             if (Object.keys(whitetaileddeer._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_White-tailed_Deer_in_New_Zealand_(2007).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_White-tailed_Deer_in_New_Zealand_(2007).geojson"))
                     .on('data:progress', function (data) { whitetaileddeer.addData(data) });
             }
         }).on('click', onMapClick);
@@ -178,7 +178,7 @@
         // tahr
         var tahr = L.geoJSON([], { color: '#59ff00' }).on('add', function (event) {
             if (Object.keys(tahr._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Himalayan_Tahr_in_New_Zealand_(2014).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Himalayan_Tahr_in_New_Zealand_(2014).geojson"))
                     .on('data:progress', function (data) { tahr.addData(data) });
             }
         }).on('click', onMapClick);
@@ -186,7 +186,7 @@
         // pigs
         //var pigs = L.geoJSON([], {color:'#1dff00'}).on('add', function(event) {
         //	if(Object.keys(pigs._layers).length == 0) {
-        //		(new L.GeoJSON.AJAX("/vector/Distribution_of_Feral_Pig_in_New_Zealand_(2007).geojson"))
+        //		(new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Feral_Pig_in_New_Zealand_(2007).geojson"))
         //			.on('data:progress', function (data) {pigs.addData(data)});
         //	}
         //});
@@ -194,7 +194,7 @@
         // chamois
         var chamois = L.geoJSON([], { color: '#00ff2e' }).on('add', function (event) {
             if (Object.keys(chamois._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Chamois_in_New_Zealand_(2007).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Chamois_in_New_Zealand_(2007).geojson"))
                     .on('data:progress', function (data) { chamois.addData(data) });
             }
         }).on('click', onMapClick);
@@ -202,7 +202,7 @@
         // goats
         var goats = L.geoJSON([], { color: '#00ff9c' }).on('add', function (event) {
             if (Object.keys(goats._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/Distribution_of_Feral_Goat_in_New_Zealand_(2014).geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/Distribution_of_Feral_Goat_in_New_Zealand_(2014).geojson"))
                     .on('data:progress', function (data) { goats.addData(data) });
             }
         }).on('click', onMapClick);
@@ -211,7 +211,7 @@
         // pigs
         var pigs3 = L.geoJSON([], { color: '#00ff9c' }).on('add', function (event) {
             if (Object.keys(pigs3._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/pigs8.geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/pigs8.geojson"))
                     .on('data:progress', function (data) { pigs3.addData(data) });
             }
         }).on('click', onMapClick);
@@ -223,7 +223,7 @@
         // hunting areas
         var huntingareas = L.geoJSON([], { color: '#99619e' }).on('add', function (event) {
             if (Object.keys(huntingareas._layers).length == 0) {
-                (new L.GeoJSON.AJAX("/vector/DOC_Recreational_Hunting_Permit_Areas.geojson"))
+                (new L.GeoJSON.AJAX("/HuntingSpots/vector/DOC_Recreational_Hunting_Permit_Areas.geojson"))
                     .on('data:progress', function (data) { huntingareas.addData(data) });
             }
         });

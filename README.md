@@ -1,8 +1,12 @@
 # New Zealand Hunting Spots
-https://pages.cloudflare.com/
+https://torleif.github.io/HuntingSpots/
 
+**Plan Your Next NZ Hunt**
 
-This project is a static re-creation of the defunct Hunting Spots website, which you can find at the following link: [Hunting Spots Showcase.](https://www.data.govt.nz/catalogue-guide/showcase/huntingspots/)
+This site helps you find legal hunting areas across New Zealand. View DOC hunting zones, see where feral animals are present, and explore the terrain with Topo50 and OpenStreetMap layers. Use it to scout locations, check access, and get the info you need before heading out.
+
+This project is a static re-creation of the defunct Hunting Spots website, which is sadly not online. 
+
 # How to Run Locally
 
 To run this app on your computer, follow these steps:
